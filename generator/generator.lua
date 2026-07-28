@@ -67,8 +67,10 @@ local function parseImGuiHeader(header, names, modulename)
 	parser.cimgui_inherited =  dofile([[../../cimgui/generator/output/structs_and_enums.lua]])
 	
 	local include_cmd = COMPILER=="cl" and [[ /I ]] or [[ -I ]]
+	local language_flag = COMPILER=="cl" and [[ /TP ]] or [[ -x c++ ]]
 	local extra_includes = include_cmd.." ../../cimgui "
 	..include_cmd.." ../../cimgui/imgui "
+	..language_flag
 	
 	parser:take_lines(CPRE..extra_includes..header, names, COMPILER)
 	
